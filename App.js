@@ -15,25 +15,28 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import AppNavigator from './navigator/AppNavigator';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import MapView from 'react-native-maps';
 import Map from './component/Map';
+import TabNavigator from './navigator/TabNavigator';
 
 const App: () => React$Node = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Map />
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    // <>
+    //   <StatusBar barStyle="dark-content" />
+    //   <SafeAreaView>
+    //     <ScrollView
+    //       contentInsetAdjustmentBehavior="automatic"
+    //       style={styles.scrollView}>
+    //       <Map />
+    //     </ScrollView>
+    //   </SafeAreaView>
+    // </>
+    <AppNavigator />
   );
 };
 
