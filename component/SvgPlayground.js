@@ -12,14 +12,23 @@ const SvgPlayground = () => {
   const [progress, setProgress] = useState(0);
   const [position, setPosition] = useState(Math.max(1 - progress / 10, 0));
   const [isDone, setIsDone] = useState(false);
+  const [color, setColor] = useState('tomato');
+  const [rotation, setRotation] = useState('rotate(-90.1 30 30)');
   useEffect(() => {
     console.log('in useEffect');
     setPosition(Math.max(1 - progress / 10, 0));
+    console.log(position);
+    if (progress >= 5) {
+      setColor('orange');
+      // setRotation('rotate(-270.1 30 30)');
+      // setProgress(0);
+      // setPosition(Math.max(1 - progress / 10, 0));
+    }
     if (progress >= 10) {
-      setIsDone(true);
+      setColor('green');
     }
     if (progress === 0) {
-      setIsDone(false);
+      setColor('tomato');
     }
     console.log(progress);
   }, [progress]);
@@ -27,17 +36,18 @@ const SvgPlayground = () => {
   const handleReset = () => {
     setProgress(0);
     setPosition(Math.max(1 - progress, 0));
+    setRotation('rotate(-90.1 30 30)');
   };
   return (
     <Container>
       <SvgContainer>
         <Svg height="300" width="300">
-          <G transform="rotate(-90.1 30 30)">
+          <G transform={rotation}>
             <Circle
               cx={30}
               cy={30}
               r={RADIUS}
-              stroke={isDone ? 'green' : 'tomato'}
+              stroke={color}
               fill="none"
               strokeWidth={STROKE_WIDTH}
               style={{
@@ -49,14 +59,14 @@ const SvgPlayground = () => {
               cx={30}
               cy={30}
               r={RADIUS - STROKE_WIDTH / 2}
-              stroke={isDone ? 'green' : 'tomato'}
+              stroke={color}
               fill="none"
             />
             <Circle
               cx={30}
               cy={30}
               r={RADIUS + STROKE_WIDTH / 2}
-              stroke={isDone ? 'green' : 'tomato'}
+              stroke={color}
               fill="none"
             />
           </G>
