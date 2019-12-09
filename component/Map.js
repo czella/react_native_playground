@@ -1,36 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
 
 const {height} = Dimensions.get('window');
 
-const Map = () => {
-  const [position, setPosition] = useState({latitude: 0, longitude: 0});
-  const [error, setError] = useState('');
+const Map = (props) => {
+  const {
+    position,
+  } = props;
   const [destination, setDestination] = useState({
     latitude: 47.505864,
     longitude: 19.060651,
   });
-  useEffect(() => {
-    Geolocation.getCurrentPosition(
-      position => {
-        setPosition({
-          longitude: position.coords.longitude,
-          latitude: position.coords.latitude,
-        });
-        setError(null);
-      },
-      error => setError(error.message),
-      {enableHighAccuracy: true, timeout: 200000, maximumAge: 1000},
-    );
-  }, []);
   const changeDestination = () => {
     if (destination.longitude === 19.058258) {
       setDestination({latitude: 47.505864, longitude: 19.060651});
     } else {
-      setDestination({latitude: 47.508661, longitude: 19.058258});
+      setDestination({latitude: 48.508661, longitude: 19.058258});
     }
   };
   return (
@@ -49,16 +36,19 @@ const Map = () => {
             longitudeDelta: 0.0421,
           }}
           style={StyleSheet.absoluteFillObject}>
-          <MapView.Marker
+          <Marker
             coordinate={position}
             title="My position"
             description="This is my position"
+            image={require('../assets/edited.png')}
+
           />
           <MapView.Polyline
             coordinates={[position, destination]}
             strokeWidth={4}
           />
         </MapView>
+        {console.log(position, '------------------pos----------------------')}
       </MapContainer>
     </Container>
   );
@@ -94,5 +84,6 @@ const Button = styled.Text`
   background-color: blue;
   text-align: center;
 `;
+
 
 export default Map;

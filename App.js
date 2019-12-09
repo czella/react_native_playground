@@ -7,22 +7,33 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
 import AppNavigator from './navigator/AppNavigator';
+import { createStore } from 'redux';
+import { Provider} from 'react-redux';
+import { store, persistor } from './store/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-import MapView from 'react-native-maps';
-import Map from './component/Map';
-import TabNavigator from './navigator/TabNavigator';
+// const initialState = {
+//   action: "",
+//   position: {latitude: 0, longitude: 0},
+//   error: null,
+//   progress: 0
+// };
+//
+// const reducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case "SET_POSITION":
+//       return {...state, position: action.position};
+//     case "SET_ERROR":
+//       return {...state, error: action.error};
+//     case "SET_PROGRESS":
+//       return {...state, progress: action.progress};
+//     default:
+//       return state;
+//   }
+// };
+
+// const store = createStore(reducer);
 
 const App: () => React$Node = () => {
   return (
@@ -36,47 +47,13 @@ const App: () => React$Node = () => {
     //     </ScrollView>
     //   </SafeAreaView>
     // </>
-    <AppNavigator />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <AppNavigator />
+      </PersistGate>
+    </Provider>
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;
