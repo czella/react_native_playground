@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {Svg, Circle, G} from 'react-native-svg';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Dimensions} from 'react-native';
 
 const DIAMETER = 50;
 const STROKE_WIDTH = 6;
@@ -55,8 +55,16 @@ const SvgPlayground = (props) => {
     setBigProgress(bigProgress + 1);
   };
 
+  const handleGetDimensions = () => {
+    console.log(Dimensions.get('window').height, 'xxxxxxxxxxxxxxxxxxxheightxxxxxxxxxxx');
+    console.log(Dimensions.get('window').width, 'xxxxxxxxxxxxxxxxxxxwidthxxxxxxxxxxx');
+  };
+
   return (
     <Container>
+      <TouchableOpacity onPress={handleGetDimensions}>
+        <Button>Get Dimensions</Button>
+      </TouchableOpacity>
       <SvgContainer>
         <Svg height="350" width="350">
           <G transform={rotation}>
